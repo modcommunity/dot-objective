@@ -31,7 +31,7 @@ A game with none of these is a deathmatch, which `dot-match` alone already does.
 Because the numbers are the whole thing, and they are twenty years old:
 
 - **More cappers capture faster, with diminishing returns.** The nth player adds `1/n`. Linear makes a point a headcount.
-- **Two teams at once pauses the capture**, and the defender gets credit only if the attackers had got at least half way — because rewarding a player for standing on their own point teaches players to stand on their own point.
+- **Two teams at once pauses the capture**, and the defender gets credit only if the attackers had got at least half way, because rewarding a player for standing on their own point teaches players to stand on their own point.
 - **An abandoned capture decays** over ninety seconds rather than snapping back, six times faster in overtime.
 - **A cart moves at 0.55, 0.77 and 1.0** of full speed for one, two and three-or-more pushers. Not a curve: hand-picked so a second pusher is worth having and a fourth is worth sending somewhere else.
 - **A hill does the work.** A downhill segment rolls the cart with nobody on it, so a defender who stops pushing at the top of a hill has still lost the hill.
@@ -69,7 +69,7 @@ mirror.apply_wire(wire_from_the_server)
 
 ## Dependencies
 
-[dot-core](https://github.com/modcommunity/dot-core). Nothing else — not dot-match, not dot-combat, not dot-net. The coupling to a game is six callables on `DotObjectivePresence`.
+[dot-core](https://github.com/modcommunity/dot-core). Nothing else: not dot-match, not dot-combat, not dot-net. The coupling to a game is six callables on `DotObjectivePresence`.
 
 ## License
 

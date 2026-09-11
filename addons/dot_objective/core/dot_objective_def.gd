@@ -10,9 +10,10 @@ extends Resource
 ## at boot, in a headless process, with no world loaded — which is the only moment
 ## anybody is watching.
 ##
-## [b]Six kinds, and they are not arbitrary.[/b] They are what Counter-Strike, Team
-## Fortress 2 and Left 4 Dead 2 between them ship, reduced to the smallest set that
-## still tells the three of them apart:
+## [b]Six kinds, and they are not arbitrary.[/b] They are what the round-based
+## competitive shooters, the class-based objective shooters and the co-operative
+## survival shooters between them ship, reduced to the smallest set that still tells
+## the three of them apart:
 ##
 ## [codeblock]
 ## CAPTURE   a control point                cp_, koth_, dod_, dom_
@@ -63,8 +64,8 @@ enum Kind {
 
 ## Points that a team must already own before it may act on this one.
 ##
-## Keyed by team id, holding objective ids. This is Team Fortress 2's
-## [code]team_previouspoint[/code], and it is what makes a five-point map a tug of war
+## Keyed by team id, holding objective ids. This is the class-based objective shooters'
+## previous-point link, and it is what makes a five-point map a tug of war
 ## rather than a race to the enemy's last point: red may only capture the middle while
 ## it owns its own second, so a lost point is a point you have to walk back to.
 ##
@@ -102,14 +103,14 @@ enum Kind {
 @export_range(1, 32, 1) var capture_required_to_start: int = 1
 
 ## Cappers the capture time is quoted for. More than this is faster; see
-## [DotObjectiveCapture] for the diminishing-returns curve, which is Source's.
+## [DotObjectiveCapture] for the diminishing-returns curve, which is the shipped one.
 @export_range(1, 32, 1) var capture_required: int = 1
 
 ## Whether more cappers capture faster.
 ##
-## On is Team Fortress 2; off is Day of Defeat, where a point needs exactly N players
-## and a sixth does nothing. Off also makes the point a **place a team must hold**
-## rather than a race, which is a different game.
+## On is the class-based objective shooters; off is the wartime objective shooters,
+## where a point needs exactly N players and a sixth does nothing. Off also makes the
+## point a [b]place a team must hold[/b] rather than a race, which is a different game.
 @export var capture_scales_with_players: bool = true
 
 @export_group("Bomb", "bomb_")
@@ -117,13 +118,13 @@ enum Kind {
 ## Ticks the planter must stand still for.
 @export_range(1, 100000, 1) var bomb_plant_ticks: int = 192
 
-## Ticks from armed to detonation. Counter-Strike's is 45 seconds.
+## Ticks from armed to detonation. The genre's is 45 seconds.
 @export_range(1, 1000000, 1) var bomb_fuse_ticks: int = 2880
 
 ## Ticks to defuse bare-handed.
 @export_range(1, 100000, 1) var bomb_defuse_ticks: int = 640
 
-## Ticks to defuse with a kit. Counter-Strike's five against ten.
+## Ticks to defuse with a kit. The genre's five against ten.
 @export_range(1, 100000, 1) var bomb_defuse_kit_ticks: int = 320
 
 ## How close a defuser must be to the planted bomb.
@@ -153,7 +154,7 @@ enum Kind {
 @export_range(0.1, 100.0, 0.1, "or_greater") var payload_push_radius: float = 3.0
 
 ## Ticks with nobody pushing before the cart starts rolling back to the last
-## checkpoint. Team Fortress 2's thirty seconds; five in overtime.
+## checkpoint. The class-based objective shooters' thirty seconds; five in overtime.
 @export_range(0, 1000000, 1) var payload_recede_ticks: int = 1920
 
 @export_group("Flag", "flag_")
@@ -167,8 +168,8 @@ enum Kind {
 
 ## A team-mate touching their own dropped flag sends it home immediately.
 ##
-## On is Counter-Strike-style and off is Team Fortress 2, where a dropped intelligence
-## is a timer both teams play around. It changes the game more than it looks.
+## On is the round-based-shooter style and off is the class-based one, where a dropped
+## flag is a timer both teams play around. It changes the game more than it looks.
 @export var flag_touch_returns: bool = true
 
 ## The flag must be at home before a carrier may capture with the enemy's.

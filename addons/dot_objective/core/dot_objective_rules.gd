@@ -8,8 +8,9 @@ extends DotConfig
 ## environment, then the command line — so a server can run a slower capture without an
 ## export, and a test can set one field and leave the other twenty alone.
 ##
-## [b]The numbers are Source's, and each one is a decision somebody else already made
-## badly once.[/b] Where a default came from a shipped game it says so, because the
+## [b]The numbers come from twenty years of shipped objective modes, and each one is a
+## decision somebody else already made badly once.[/b] Where a default came from a
+## shipped game it says so, because the
 ## next reader's instinct will be to round it and the roundest values here are the
 ## wrong ones.
 
@@ -17,7 +18,7 @@ extends DotConfig
 
 ## What two teams in one zone does: 0 breaks the capture, 1 pauses it.
 ##
-## Pausing is Team Fortress 2's [code]mp_blockstyle 1[/code] and is what a modern
+## Pausing is [code]mp_blockstyle 1[/code] and is what a modern
 ## player expects — a defender who steps on the point stops the clock and does not
 ## undo the last twenty seconds of it. Breaking is the older behaviour and is brutal
 ## on the attackers, which some modes want.
@@ -25,7 +26,7 @@ extends DotConfig
 
 ## Ticks an unattended partial capture takes to run all the way back down.
 ##
-## Source's [code]mp_capdeteriorate_time[/code], 90 seconds, and it is why a point you
+## [code]mp_capdeteriorate_time[/code], 90 seconds, and it is why a point you
 ## nearly took is still nearly taken when you come back with a friend. Independent of
 ## the capture time on purpose: a long capture that decays in its own duration would
 ## be untakeable at any player count.
@@ -33,19 +34,19 @@ extends DotConfig
 
 ## How much faster progress decays in overtime.
 ##
-## Six, from Source. Overtime exists to end the game, and a partial capture that takes
+## Six, from the original. Overtime exists to end the game, and a partial capture that takes
 ## its full time to decay is a way to keep it going.
 @export_range(1.0, 100.0, 0.1) var overtime_decay_multiplier: float = 6.0
 
 ## A blocker only gets credit when the capture was at least this far along.
 ##
-## Half, from Source. Standing on your own point as the round starts is not a block,
+## Half, from the original. Standing on your own point as the round starts is not a block,
 ## and rewarding it teaches players to stand on their own point.
 @export_range(0.0, 1.0, 0.01) var block_credit_fraction: float = 0.5
 
 ## A capture may not start again for this many ticks after being broken.
 ##
-## Zero, which is Source. Present because a mode that wants to punish a failed push
+## Zero, which is the original's. Present because a mode that wants to punish a failed push
 ## has nowhere else to say so.
 @export_range(0, 100000, 1) var capture_recovery_ticks: int = 0
 
@@ -53,9 +54,9 @@ extends DotConfig
 
 ## Cart speed as a fraction of full, for one, two, and three-or-more pushers.
 ##
-## 0.55, 0.77, 1.0 — Team Fortress 2's exactly. Not a curve: they are hand-picked so
-## that a second pusher is worth having and a fourth is worth sending somewhere else,
-## which no formula this simple produces.
+## 0.55, 0.77, 1.0 — the class-based objective shooters' exactly. Not a curve: they are
+## hand-picked so that a second pusher is worth having and a fourth is worth sending
+## somewhere else, which no formula this simple produces.
 @export_range(0.0, 1.0, 0.01) var payload_speed_one: float = 0.55
 @export_range(0.0, 1.0, 0.01) var payload_speed_two: float = 0.77
 @export_range(0.0, 1.0, 0.01) var payload_speed_three: float = 1.0
@@ -73,8 +74,8 @@ extends DotConfig
 
 ## Objectives make no progress at all until this is set.
 ##
-## The switch a warmup, a freeze time and a round-end period all need, and Source's
-## [code]PointsMayBeCaptured[/code]. Off by default, because a manager that started
+## The switch a warmup, a freeze time and a round-end period all need: the shipped
+## modes' "points may be captured" gate. Off by default, because a manager that started
 ## capturing the moment it was built would capture during warmup — and warmup is the
 ## one period in which everybody is standing on everything.
 @export var live: bool = false

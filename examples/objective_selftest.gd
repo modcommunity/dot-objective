@@ -318,7 +318,7 @@ func _test_presence() -> void:
 	_check(
 		(counts[1] as DotObjectivePresence.Count).cappers == 0
 		and (counts[1] as DotObjectivePresence.Count).blockers == 1,
-		"somebody who may not capture still blocks — Team Fortress 2's invulnerable player"
+		"somebody who may not capture still blocks — the invulnerable player"
 	)
 	world.can_capture.erase("a")
 
@@ -366,12 +366,12 @@ func _test_capture_basic() -> void:
 	_check(started.size() == 1, "and the start was announced once")
 	_check(
 		absf(float(t) - float(6 * RATE)) <= 2.0,
-		"and it took the quoted %d ticks, not Source's 2*T*R (took %d)" % [6 * RATE, t]
+		"and it took the quoted %d ticks, not the original 2*T*R (took %d)" % [6 * RATE, t]
 	)
 
-	# The departure from Source is deliberate and this is the check that pins it: a
-	# definition that says six seconds means six seconds with the quoted number of
-	# cappers on it. Source's number would have been twelve.
+	# The departure from the original is deliberate and this is the check that pins it:
+	# a definition that says six seconds means six seconds with the quoted number of
+	# cappers on it. The original's number would have been twelve.
 	_check(
 		absf(obj.ticks_for(1) - float(6 * RATE)) <= 1.0,
 		"ticks_for agrees with the clock"
@@ -476,9 +476,9 @@ func _test_capture_blocking() -> void:
 func _test_capture_recovery() -> void:
 	_section("capture: the recovery period after a failed push")
 
-	# capture_recovery_ticks is the one rule here that Source does not have, and it is
+	# capture_recovery_ticks is the one rule here that the original does not have, and it is
 	# the kind that is easy to declare and never wire: nothing errors when a capture
-	# restarts immediately, because restarting immediately is what Source does.
+	# restarts immediately, because restarting immediately is what the original does.
 	var bits := _capture_world()
 	var world: World = bits[0]
 	var obj: DotObjectiveCapture = bits[1]
@@ -525,7 +525,7 @@ func _test_capture_recovery() -> void:
 	obj.advance(t, p, rules)
 	_check(obj.capturing_team() == 1, "and may once the recovery period is up")
 
-	# Zero, the default, is Source: a break is over the moment it happens.
+	# Zero, the default, is the original: a break is over the moment it happens.
 	var bits2 := _capture_world()
 	var w2: World = bits2[0]
 	var o2: DotObjectiveCapture = bits2[1]

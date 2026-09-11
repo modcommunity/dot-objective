@@ -68,7 +68,7 @@ repeated lesson three shapes is where the bugs would otherwise be.
 | `DotObjectiveRules` | Every cross-objective policy, layered like every `DotConfig`. |
 | `DotObjectivePresence` | The whole coupling to a game: six callables. |
 | `DotObjective` | The base. Phase, owner, the wire form, "complete exactly once". |
-| `DotObjectiveCapture` | A control point, with Source's curve. |
+| `DotObjectiveCapture` | A control point, with the shipped curve. |
 | `DotObjectiveBomb` | Plant, fuse, defuse, kit, drop, pick up. |
 | `DotObjectivePayload` | A cart, three speeds, hills, checkpoints, receding. |
 | `DotObjectiveFlag` | Capture the flag, and the three settings that make it three games. |
@@ -79,9 +79,9 @@ repeated lesson three shapes is where the bugs would otherwise be.
 
 ## Decisions
 
-### 1. `capture_ticks` means what it says, and Source's does not
+### 1. `capture_ticks` means what it says, and the original's does not
 
-Source's total capture time is `capTime * 2 * requiredPlayers`. A point whose map file
+The original's total capture time is `capTime * 2 * requiredPlayers`. A point whose map file
 says ten seconds takes **twenty** with one player, and twenty-seven if two are required.
 That is a trap in a field a mapper reads: the number in the document is not the number on
 the clock.
@@ -136,7 +136,7 @@ get wrong; this has none. Same for a plant, a flag carrier and a rescue leader.
 ## Three bugs found by running it, all parse-clean
 
 - **`may_block` defaulted to `may_capture`, which excludes the one player the pair exists
-  for.** Team Fortress 2's invulnerable player may not *capture* and must still *stop* a
+  for.** The invulnerable player may not *capture* and must still *stop* a
   capture — that is the entire reason there are two questions rather than one. Chaining
   the fallback to `may_capture` made the invulnerable player the one player the
   distinction did not apply to. Nothing errored: "the point kept capturing" is a
@@ -150,15 +150,15 @@ get wrong; this has none. Same for a plant, a flag carrier and a rescue leader.
   refuses to start a contested capture at all. It is the rarer shape in this family's
   notes: not a value nobody consumes, but a value produced far too often.
 
-- **`capture_recovery_ticks` was a setting nothing set.** The one rule here Source does
-  not have — *a capture may not start again for this many ticks after being broken* — was
+- **`capture_recovery_ticks` was a setting nothing set.** The one rule here the original
+  does not have — *a capture may not start again for this many ticks after being broken* — was
   exported, documented, range-limited, and read in exactly one place: a gate in
   `_maybe_start` testing a `_recovery_until` that was only ever assigned zero. `_break`
   had `if _recovery_until == 0: _recovery_until = 0`, which is a self-assignment that
   looks from three feet away exactly like the line that should have been there.
 
   Nothing errors, and this is the reason it survived: **restarting immediately is what
-  Source does**, so a mode that set the field to five seconds and got a capture back on
+  the original does**, so a mode that set the field to five seconds and got a capture back on
   the next tick was looking at correct-for-somebody-else behaviour. It is the family's
   most-repeated shape — an exported setting whose name occurs once in its repository —
   caught by the mechanical detector that shape has, and by a second one worth keeping:
@@ -185,7 +185,8 @@ godot --headless --path . res://examples/objective_selftest.tscn   # 193 checks
 - **No round layouts as a document.** `DotObjectiveSet.set_round()` takes ids and owners;
   a map that wants five different round configurations declares them in its own file.
   A schema for that is a schema for one game's idea of a round.
-- **No respawn-time adjustment on capture.** Team Fortress 2 shortens the defenders' wave
+- **No respawn-time adjustment on capture.** The class-based objective shooters shorten
+  the defenders' wave
   when a point falls. That is dot-match's respawn queue and belongs there.
 - **No overtime decision.** `rules.overtime` is a switch a game sets; deciding when a
   round is in overtime needs the round clock, which is dot-match's.

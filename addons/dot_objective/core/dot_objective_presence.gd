@@ -4,7 +4,7 @@ extends RefCounted
 ## How an objective finds out who is standing on it.
 ##
 ## [b]The whole coupling of this addon to a game is here, and it is six callables.[/b]
-## dot-objective never imports dot-match, dot-combat, dot-fps-controller or dot-net,
+## dot-objective never imports dot-match, dot-combat, dot-player-controller or dot-net,
 ## and it must not: a control point is the same rule in a 3D shooter, a 2D arena and a
 ## headless test with a dictionary of positions in it. The alternative — asking a
 ## [DotMatch] for its roster — would make every one of those a project that needs
@@ -37,15 +37,16 @@ var alive_fn: Callable = Callable()
 
 ## What one player is worth to a capture. [code](key: String) -> int[/code]
 ##
-## Source's [code]GetCaptureValueForPlayer[/code]. Defaults to 1. It is here because
+## The long-standing per-player capture value. Defaults to 1. It is here because
 ## every game that ships a class system eventually wants one class to count double,
 ## and because a game with a "capture value" powerup has nowhere else to put it.
 var capture_value_fn: Callable = Callable()
 
 ## Whether one may capture at all. [code](key: String) -> bool[/code]
 ##
-## Defaults to true. Team Fortress 2 uses it for a player who is invulnerable: they
-## may not capture, and they may still block, which is the distinction below.
+## Defaults to true. The class-based objective shooters use it for a player who is
+## invulnerable: they may not capture, and they may still block, which is the
+## distinction below.
 var may_capture_fn: Callable = Callable()
 
 ## Whether one may block a capture they cannot contribute to.
@@ -53,9 +54,9 @@ var may_capture_fn: Callable = Callable()
 ##
 ## [b]Defaults to true, and deliberately NOT to [member may_capture_fn].[/b] Chaining
 ## it to that is the obvious thing and it is wrong in exactly the case the pair exists
-## for: Team Fortress 2's invulnerable player may not capture and must still stop one,
-## so a fallback of "may_capture" makes the one player this distinction was invented
-## for the one player it does not apply to. Anybody alive and standing there blocks
+## for: the invulnerable player may not capture and must still stop one, so a fallback
+## of "may_capture" makes the one player this distinction was invented for the one
+## player it does not apply to. Anybody alive and standing there blocks
 ## unless the game says otherwise.
 var may_block_fn: Callable = Callable()
 

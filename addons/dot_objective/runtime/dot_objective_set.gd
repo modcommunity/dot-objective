@@ -3,10 +3,10 @@ extends RefCounted
 
 ## The objectives of one map, in order, and the rules about which of them are in play.
 ##
-## This is Team Fortress 2's [code]team_control_point_master[/code] and its
-## [code]team_control_point_round[/code], which are two entities doing three jobs: hold
-## the ordered list, decide which subset is being played this round, and answer "may
-## this team touch that point yet".
+## This is the class-based objective shooters' control-point master and its per-round
+## point set, which are two entities doing three jobs: hold the ordered list, decide
+## which subset is being played this round, and answer "may this team touch that point
+## yet".
 ##
 ## [b]The third job is the one worth having.[/b] A five-point map is a tug of war and
 ## not a race because red may capture the middle only while red still owns its own

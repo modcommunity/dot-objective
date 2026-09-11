@@ -1,7 +1,7 @@
 class_name DotObjectivePayload
 extends DotObjective
 
-## A cart pushed along a path. Team Fortress 2's [code]team_train_watcher[/code],
+## A cart pushed along a path. The class-based objective shooters' cart watcher,
 ## reduced to the part that is a rule rather than a brush entity.
 ##
 ## [member DotObjective.progress] is the fraction of the path travelled, which is what
@@ -14,7 +14,7 @@ extends DotObjective
 ## would make this addon untestable and would put the authority for where the cart is
 ## in a place two machines disagree about.
 ##
-## [b]Valve's speed table, not a formula.[/b] One pusher moves it at 0.55 of full
+## [b]A shipped speed table, not a formula.[/b] One pusher moves it at 0.55 of full
 ## speed, two at 0.77, three or more at 1.0. Those are hand-picked so a second pusher
 ## is clearly worth having and a fourth is clearly worth sending somewhere else; no
 ## smooth curve produces that shape, which is why the numbers are three exported
@@ -161,7 +161,7 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 			started.emit(team, pushing.first if pushing != null else "")
 	elif _blocked:
 		# Blocked and on a downhill still rolls: the hill is doing the work, and a
-		# defender standing in front of a cart on a slope is Valve's deliberate
+		# defender standing in front of a cart on a slope is the genre's deliberate
 		# exception. Everywhere else a blocked cart is a stopped cart.
 		_idle_ticks = 0
 		if gradient < 0:

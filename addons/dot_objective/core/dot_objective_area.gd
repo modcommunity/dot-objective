@@ -19,8 +19,8 @@ extends Resource
 ##
 ## [b]A capture zone is a cylinder, not a sphere.[/b] The difference is the balcony: a
 ## player standing eight metres above the point is inside a sphere of radius ten and
-## has no business capturing anything. Source's trigger is a brush and its height is
-## deliberate; a sphere is the shape that quietly rewards the wrong player.
+## has no business capturing anything. The shipped trigger is a brush and its height
+## is deliberate; a sphere is the shape that quietly rewards the wrong player.
 
 enum Shape {
 	SPHERE,      ## A ball. For a pickup radius, where height genuinely does not matter.

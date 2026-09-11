@@ -1,7 +1,7 @@
 class_name DotObjectiveBomb
 extends DotObjective
 
-## Plant it, defuse it. Counter-Strike's C4, without the weapon.
+## Plant it, defuse it. The round-based shooters' bomb, without the weapon.
 ##
 ## [member DotObjective.progress] is the plant or the defuse while one is running, and
 ## the fuse burning down once it is armed — which is the number a HUD wants in all

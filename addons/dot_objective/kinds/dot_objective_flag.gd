@@ -14,8 +14,8 @@ extends DotObjective
 ## a spectator, and is deliberately not "how long until it returns".
 ##
 ## [b]Three settings turn this into three different games.[/b]
-## [member DotObjectiveDef.flag_touch_returns] is Counter-Strike-style instant return
-## against Team Fortress 2's timer that both teams play around;
+## [member DotObjectiveDef.flag_touch_returns] is instant return on a team-mate's
+## touch, against the timer that both teams play around;
 ## [member DotObjectiveDef.flag_requires_own_at_home] is what stops a stalemate being
 ## two simultaneous captures; and
 ## [member DotObjectiveDef.flag_return_ticks] is how long a dropped flag is a decision

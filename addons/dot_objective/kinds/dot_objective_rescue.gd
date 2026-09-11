@@ -1,8 +1,8 @@
 class_name DotObjectiveRescue
 extends DotObjective
 
-## Get somebody out. Counter-Strike's hostages, and every co-operative campaign's
-## "escort the scientist to the lift".
+## Get somebody out. The round-based shooters' hostages, and every co-operative
+## campaign's "escort the specialist to the lift".
 ##
 ## [member DotObjective.progress] is how many have been rescued out of how many are
 ## required, because that is the number on the HUD and the number the round ends on.

@@ -3,9 +3,10 @@ extends DotObjective
 
 ## A control point. [member DotObjective.progress] is how far the current capture is.
 ##
-## This is Source's [code]CTriggerAreaCapture::CaptureThink[/code] rewritten in ticks —
-## the shape of it, and every one of its decisions, because between Team Fortress 2,
-## Day of Defeat and Domination there are twenty years of play behind them:
+## This is the long-standing capture-area think rewritten in ticks — the shape of it,
+## and every one of its decisions, because between the class-based objective shooters,
+## the wartime ones and the domination modes there are twenty years of play behind
+## them:
 ##
 ## - [b]More cappers capture faster, with diminishing returns.[/b] The nth player adds
 ##   [code]1/n[/code] of a player's worth, so the rate for n is the harmonic number
@@ -19,7 +20,7 @@ extends DotObjective
 ## - [b]A neutral point being taken by the wrong team runs backwards[/b], which is what
 ##   makes a contested neutral point a tug of war rather than a coin flip.
 ##
-## [b]One deliberate departure from Source, and it is the exported field.[/b] Source's
+## [b]One deliberate departure from the original, and it is the exported field.[/b] Its
 ## total capture time is [code]capTime * 2 * requiredPlayers[/code], so a point whose
 ## map file says ten seconds takes twenty with one player and twenty-seven with two
 ## required. That is a trap in a field a mapper reads: the number in the document is
@@ -38,7 +39,7 @@ var _total: float = 1.0
 var _capturing_team: int = 0
 
 ## Bumped every time a capture starts, so a blocker cannot be credited twice for one
-## attempt. Source keeps the same counter for the same reason.
+## attempt. The original keeps the same counter for the same reason.
 var _attempt: int = 0
 
 var _blocked: bool = false
@@ -124,8 +125,8 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 	var counts := presence.counts_in(def.area, allowed)
 
 	# Who is here, and is anybody contesting? A team with only blockers in it counts
-	# as present for contest purposes and cannot start anything — Team Fortress 2's
-	# invulnerable player, who stops a capture without helping one.
+	# as present for contest purposes and cannot start anything — the invulnerable
+	# player, who stops a capture without helping one.
 	var teams_present := 0
 	var team_in_zone := 0
 	for team_id: Variant in counts.keys():
@@ -156,8 +157,8 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 		var count: DotObjectivePresence.Count = counts[team_in_zone]
 		_remaining -= rate_for(count.cappers)
 	elif owner_team == 0 and team_in_zone > 0:
-		# A neutral point, and the team in the zone is not the one capturing it. Source
-		# runs the clock backwards rather than breaking, which is what makes a
+		# A neutral point, and the team in the zone is not the one capturing it. The
+		# original runs the clock backwards rather than breaking, which is what makes a
 		# contested neutral point a tug of war: whoever is standing there is winning.
 		var other: DotObjectivePresence.Count = counts[team_in_zone]
 		_remaining += rate_for(other.cappers)
@@ -192,7 +193,7 @@ func _maybe_start(
 	if locked:
 		return
 
-	# A capture does not START contested. Source does not check this — it starts one
+	# A capture does not START contested. The original does not check this — it starts one
 	# and breaks it on the next think — and the result is a start and an interrupt
 	# every tick for as long as two teams stand on a point, which at 64 Hz is 128
 	# signals a second and a kill feed full of nothing. It also makes block_style 0

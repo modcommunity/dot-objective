@@ -59,11 +59,11 @@ var locked: bool = false
 
 ## Whether one team may act on this right now. [code](team: int) -> bool[/code]
 ##
-## [b]Locking is per team, and that is not a detail.[/b] Team Fortress 2's five-point
-## map is a tug of war precisely because red may capture the middle only while it still
-## owns its own second point — the same point, at the same moment, is available to one
-## side and not the other. A single [member locked] boolean cannot say that, and a
-## mode built on one is a race rather than a tug of war.
+## [b]Locking is per team, and that is not a detail.[/b] The class-based objective
+## shooters' five-point map is a tug of war precisely because one side may capture the
+## middle only while it still owns its own second point — the same point, at the same
+## moment, is available to one side and not the other. A single [member locked]
+## boolean cannot say that, and a mode built on one is a race rather than a tug of war.
 ##
 ## [DotObjectiveSet] fills this in from [member DotObjectiveDef.requires_owned]. Unset
 ## means every team may act.
