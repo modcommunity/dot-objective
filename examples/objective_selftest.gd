@@ -13,7 +13,7 @@ extends Node
 ## godot --headless --path . res://examples/objective_selftest.tscn
 ## [/codeblock]
 
-const SECTIONS := 19
+const SECTIONS := 20
 
 ## 64 a second, which is what every "ticks" number below is quoted at.
 const RATE := 64
@@ -82,6 +82,7 @@ func _run() -> void:
 	_test_capture_blocking()
 	_test_capture_decay()
 	_test_capture_block_credit()
+	_test_capture_recovery()
 	_test_bomb_plant()
 	_test_bomb_defuse()
 	_test_bomb_carrying()
@@ -470,6 +471,74 @@ func _test_capture_blocking() -> void:
 		o2.capturing_team() == 0,
 		"with block_style 0 a contested capture is broken outright"
 	)
+
+
+func _test_capture_recovery() -> void:
+	_section("capture: the recovery period after a failed push")
+
+	# capture_recovery_ticks is the one rule here that Source does not have, and it is
+	# the kind that is easy to declare and never wire: nothing errors when a capture
+	# restarts immediately, because restarting immediately is what Source does.
+	var bits := _capture_world()
+	var world: World = bits[0]
+	var obj: DotObjectiveCapture = bits[1]
+	var rules: DotObjectiveRules = bits[2]
+	rules.block_style = 0
+	rules.capture_recovery_ticks = 3 * RATE
+
+	world.add("red", 1, Vector3(1, 0, 0))
+	world.add("blue", 2, Vector3(200, 0, 0))
+	var p := world.presence()
+
+	var t := 0
+	while t < RATE:
+		t += 1
+		obj.advance(t, p, rules)
+	_check(obj.capturing_team() == 1, "a push is under way")
+
+	# Blue arrives, and with block_style 0 that breaks it outright.
+	world.move("blue", Vector3(1, 0, 1))
+	t += 1
+	obj.advance(t, p, rules)
+	_check(obj.capturing_team() == 0, "and the other team breaks it")
+	var broke_at := t
+
+	# Blue leaves again. Red is standing on the point on its own and may not start.
+	world.move("blue", Vector3(200, 0, 0))
+	for _i in range(RATE):
+		t += 1
+		obj.advance(t, p, rules)
+	_check(
+		obj.capturing_team() == 0,
+		"a second later red is alone on the point and still may not start"
+	)
+	_check(
+		is_equal_approx(obj.progress(), 0.0),
+		"and no progress has been made in the meantime"
+	)
+
+	# And it may once the period is up.
+	while t < broke_at + 3 * RATE:
+		t += 1
+		obj.advance(t, p, rules)
+	t += 1
+	obj.advance(t, p, rules)
+	_check(obj.capturing_team() == 1, "and may once the recovery period is up")
+
+	# Zero, the default, is Source: a break is over the moment it happens.
+	var bits2 := _capture_world()
+	var w2: World = bits2[0]
+	var o2: DotObjectiveCapture = bits2[1]
+	var r2: DotObjectiveRules = bits2[2]
+	r2.block_style = 0
+	w2.add("red", 1, Vector3(1, 0, 0))
+	w2.add("blue", 2, Vector3(1, 0, 1))
+	var p2 := w2.presence()
+	o2.advance(1, p2, r2)
+	_check(o2.capturing_team() == 0, "with recovery at zero the push is broken")
+	w2.move("blue", Vector3(200, 0, 0))
+	o2.advance(2, p2, r2)
+	_check(o2.capturing_team() == 1, "and may start again on the very next tick")
 
 
 func _test_capture_decay() -> void:

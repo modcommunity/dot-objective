@@ -133,7 +133,7 @@ A bomb being defused re-checks every tick that the defuser is alive, on the righ
 still within the radius. A game that only calls `cancel_defuse()` on death has one path to
 get wrong; this has none. Same for a plant, a flag carrier and a rescue leader.
 
-## Two bugs found by running it, both parse-clean
+## Three bugs found by running it, all parse-clean
 
 - **`may_block` defaulted to `may_capture`, which excludes the one player the pair exists
   for.** Team Fortress 2's invulnerable player may not *capture* and must still *stop* a
@@ -149,6 +149,26 @@ get wrong; this has none. Same for a plant, a flag carrier and a rescue leader.
   *unobservable*, because the capture is always either just-started or just-broken. This
   refuses to start a contested capture at all. It is the rarer shape in this family's
   notes: not a value nobody consumes, but a value produced far too often.
+
+- **`capture_recovery_ticks` was a setting nothing set.** The one rule here Source does
+  not have — *a capture may not start again for this many ticks after being broken* — was
+  exported, documented, range-limited, and read in exactly one place: a gate in
+  `_maybe_start` testing a `_recovery_until` that was only ever assigned zero. `_break`
+  had `if _recovery_until == 0: _recovery_until = 0`, which is a self-assignment that
+  looks from three feet away exactly like the line that should have been there.
+
+  Nothing errors, and this is the reason it survived: **restarting immediately is what
+  Source does**, so a mode that set the field to five seconds and got a capture back on
+  the next tick was looking at correct-for-somebody-else behaviour. It is the family's
+  most-repeated shape — an exported setting whose name occurs once in its repository —
+  caught by the mechanical detector that shape has, and by a second one worth keeping:
+  **an assignment whose left and right sides are the same name.** That grep over all
+  seven of this pass's addons found exactly one hit, and this was it.
+
+  The fix passes the period in rather than reading it in `_break`, because the three
+  callers do not all mean the same thing: a break because the round went non-live is
+  freeze time or a round end, not a failed push, and starting a recovery there would
+  delay the first capture of the next round by the whole period.
 
 ## Validating
 

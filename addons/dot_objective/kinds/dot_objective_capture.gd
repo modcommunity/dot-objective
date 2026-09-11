@@ -181,7 +181,7 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 		return
 
 	if _remaining >= _total:
-		_break(&"decayed")
+		_break(&"decayed", rules.capture_recovery_ticks)
 
 	_announce()
 
@@ -264,18 +264,25 @@ func _handle_contest(counts: Dictionary, rules: DotObjectiveRules) -> void:
 			break
 
 	if rules.block_style == 0:
-		_break(&"blocked")
+		_break(&"blocked", rules.capture_recovery_ticks)
 
 
-func _break(reason: StringName) -> void:
+## End the current capture. [param recovery] is the period a failed push is made to
+## wait, and is zero for a break that is not one.
+##
+## [b]not_live does not start a recovery period.[/b] The recovery is there to punish a
+## push that was stopped by the other team; a round going non-live is freeze time or a
+## round end, which is not a failed push and would otherwise delay the first capture of
+## the next round by the whole period.
+func _break(reason: StringName, recovery: int = 0) -> void:
 	var team := _capturing_team
 	_capturing_team = 0
 	_remaining = _total
 	_blocked = false
 	phase = Phase.IDLE
 	_last_fraction = -1.0
-	if _recovery_until == 0:
-		_recovery_until = 0
+	if recovery > 0:
+		_recovery_until = tick + recovery
 	if team > 0:
 		interrupted.emit(team, reason)
 
