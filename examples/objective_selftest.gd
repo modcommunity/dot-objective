@@ -14,6 +14,7 @@ extends Node
 ## [/codeblock]
 
 const SECTIONS := 20
+const CHECKS := 200
 
 ## 64 a second, which is what every "ticks" number below is quoted at.
 const RATE := 64
@@ -104,6 +105,15 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 
+	# The total the section counter cannot be. A runtime error inside a section aborts
+	# that function, and the counter is satisfied because the section had already
+	# announced itself. See docs/testing.md.
+	if _passed + _failed != CHECKS:
+		print("ERROR: %d checks ran, %d expected. A section aborted part-way." % [
+			_passed + _failed, CHECKS
+		])
+		get_tree().quit(1)
+		return
 	get_tree().quit(1 if _failed > 0 else 0)
 
 
