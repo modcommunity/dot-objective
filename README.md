@@ -71,6 +71,6 @@ mirror.apply_wire(wire_from_the_server)
 
 [dot-core](https://github.com/modcommunity/dot-core). Nothing else: not dot-match, not dot-combat, not dot-net. The coupling to a game is six callables on `DotObjectivePresence`.
 
-## License
+## Licence
 
-MIT.
+MIT. See [LICENSE](LICENSE).
