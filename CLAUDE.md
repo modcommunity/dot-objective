@@ -170,6 +170,10 @@ get wrong; this has none. Same for a plant, a flag carrier and a rescue leader.
   freeze time or a round end, not a failed push, and starting a recovery there would
   delay the first capture of the next round by the whole period.
 
+## The gate reaches its set through a weak reference
+
+`DotObjectiveSet._wire` hands every objective a `team_gate` lambda that asks the set `owns_all`. A lambda that calls a method on the set captures the set, the objective holds the lambda and the set holds the objective — two `RefCounted`s pointing at each other, which GDScript never frees. game-arena's `dedicated` leaked nine objectives and six definitions at exit for as long as it had objectives. The lambda holds a `weakref` to the set instead, and an objective that outlives its set — one nobody is playing — has an open gate.
+
 ## Validating
 
 ```bash

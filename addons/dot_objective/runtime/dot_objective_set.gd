@@ -85,11 +85,21 @@ func _make(def: DotObjectiveDef) -> DotObjective:
 
 
 ## Hand every objective the gate it needs, and point every holdout at its point.
+##
+## [b]The gate reaches this set through a weak reference, and that is the whole point of
+## it.[/b] A lambda that calls [method owns_all] captures `self`, the objective holds the
+## lambda and this set holds the objective: two [RefCounted]s pointing at each other,
+## which GDScript never frees. Measured in game-arena's dedicated suite as nine
+## objectives and six definitions alive at exit, and the objective scripts with them. An
+## objective that outlives its set is one nobody is playing, so its gate opens.
 func _wire() -> void:
+	var set_ref := weakref(self)
+
 	for obj in objectives:
 		var def := obj.def
 		obj.team_gate = func(team: int) -> bool:
-			return owns_all(team, def.requires_owned_for(team))
+			var owner_set: DotObjectiveSet = set_ref.get_ref()
+			return owner_set == null or owner_set.owns_all(team, def.requires_owned_for(team))
 
 		if obj is DotObjectiveHoldout:
 			var holdout := obj as DotObjectiveHoldout
