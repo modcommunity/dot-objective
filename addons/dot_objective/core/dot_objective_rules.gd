@@ -64,7 +64,7 @@ extends DotConfig
 ## How fast the cart rolls back when it has been idle too long, as a fraction.
 @export_range(0.0, 1.0, 0.01) var payload_recede_speed: float = 0.1
 
-## Ticks of nobody pushing before it recedes, in overtime. Five seconds in TF2.
+## Ticks of nobody pushing before it recedes, in overtime. Five seconds in the team shooters.
 @export_range(0, 1000000, 1) var payload_recede_overtime_ticks: int = 320
 
 ## A defender standing on the cart stops it.
