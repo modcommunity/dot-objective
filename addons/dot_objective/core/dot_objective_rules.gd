@@ -95,7 +95,7 @@ func env_prefix() -> String:
 
 
 func cli_prefix() -> String:
-	return "objective-"
+	return "--objective-"
 
 
 func validate() -> DotResult:
