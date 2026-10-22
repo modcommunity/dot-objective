@@ -1,0 +1,8 @@
+# size
+# Baselines only shrink: scripts/<gate> --update lowers or drops entries and refuses to add.
+addons/dot_objective/kinds/dot_objective_payload.gd::_advance	86
+examples/objective_selftest.gd	1417
+examples/objective_selftest.gd::_test_manager	85
+examples/objective_selftest.gd::_test_payload	102
+examples/objective_selftest.gd::_test_rescue	82
+examples/objective_selftest.gd::_test_set_gating	84
