@@ -128,16 +128,7 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 	var pushing: DotObjectivePresence.Count = counts.get(team, null)
 	_pushers = pushing.cappers if pushing != null else 0
 	_pushing_team = team if _pushers > 0 else 0
-
-	_blocked = false
-	if rules.payload_defenders_block:
-		for other_id: Variant in counts.keys():
-			if int(other_id) == team:
-				continue
-			var c: DotObjectivePresence.Count = counts[other_id]
-			if c.cappers > 0 or c.blockers > 0:
-				_blocked = true
-				break
+	_blocked = rules.payload_defenders_block and _defended(counts, team)
 
 	var gradient := def.gradient_at(distance)
 	var step := 0.0
@@ -202,6 +193,17 @@ func _advance(presence: DotObjectivePresence, rules: DotObjectiveRules) -> void:
 		return
 
 	_announce()
+
+
+## True when a team other than the pushers has anyone on or guarding the cart.
+func _defended(counts: Dictionary, team: int) -> bool:
+	for other_id: Variant in counts.keys():
+		if int(other_id) == team:
+			continue
+		var c: DotObjectivePresence.Count = counts[other_id]
+		if c.cappers > 0 or c.blockers > 0:
+			return true
+	return false
 
 
 ## Raise the floor past any checkpoint we have crossed, once each.
