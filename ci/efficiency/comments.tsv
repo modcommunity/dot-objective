@@ -15,5 +15,3 @@ addons/dot_objective/kinds/dot_objective_rescue.gd::long_block	1
 addons/dot_objective/runtime/dot_objective_manager.gd::banner	1
 addons/dot_objective/runtime/dot_objective_manager.gd::long_block	3
 addons/dot_objective/runtime/dot_objective_set.gd::long_block	5
-examples/objective_selftest.gd::banner	14
-examples/objective_selftest.gd::long_block	1

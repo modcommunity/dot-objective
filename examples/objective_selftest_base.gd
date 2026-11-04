@@ -1,17 +1,8 @@
 extends Node
 
-## Exercises dot-objective with no other addon, no world and no transport.
-##
-## Every check here drives the objectives out of a dictionary of positions, which is
-## exactly the seam a real game fills with its own roster — so what is being tested is
-## what this addon promises: that a capture takes the time it says with the number of
-## players it says, that the second capper is worth half a player and not a whole one,
-## that a defuse a dead player is running stops, that a cart on a hill does not need
-## anybody, and that a five-point map is a tug of war rather than a race.
-##
-## [codeblock]
-## godot --headless --path . res://examples/objective_selftest.tscn
-## [/codeblock]
+## Exercises dot-objective with no other addon, no world and no transport: every check
+## drives the objectives out of a dictionary of positions, the seam a real game fills with
+## its roster.
 
 const SECTIONS := 20
 const CHECKS := 200

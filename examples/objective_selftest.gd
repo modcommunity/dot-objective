@@ -54,8 +54,6 @@ func _run() -> void:
 	get_tree().quit(1 if _failed > 0 else 0)
 
 
-# --- Areas -----------------------------------------------------------------
-
 
 func _test_set_gating() -> void:
 	_section("the set: a tug of war rather than a race")
@@ -144,8 +142,6 @@ func _set_refusals(set_: DotObjectiveSet) -> void:
 	)
 
 
-# --- The manager -----------------------------------------------------------
-
 func _test_manager() -> void:
 	_section("the manager")
 
@@ -231,8 +227,6 @@ func _manager_wire(manager: DotObjectiveManager, defs: Array[DotObjectiveDef]) -
 	_check(manager.objective(&"a").owner_team == 0, "a reset puts the owners back")
 	mirror.queue_free()
 
-
-# --- Two dimensions --------------------------------------------------------
 
 func _test_two_dimensions() -> void:
 	_section("the same rule in 2D")

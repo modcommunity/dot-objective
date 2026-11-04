@@ -171,8 +171,6 @@ func _test_bomb_carrying() -> void:
 	_check(not obj.try_pick_up("t2", p).ok, "a dead player picks nothing up")
 
 
-# --- Payload ---------------------------------------------------------------
-
 func _payload_world(gradient: PackedInt32Array = PackedInt32Array()) -> Array:
 	var world := World.new()
 	var def := DotObjectiveDef.payload(
@@ -300,8 +298,6 @@ func _payload_hills() -> void:
 	)
 
 
-# --- Flag ------------------------------------------------------------------
-
 func _test_flag() -> void:
 	_section("capture the flag")
 
@@ -379,8 +375,6 @@ func _test_flag() -> void:
 		"a flag out of reach cannot be taken"
 	)
 
-
-# --- Rescue ----------------------------------------------------------------
 
 func _test_rescue() -> void:
 	_section("rescue")
@@ -469,8 +463,6 @@ func _rescue_losses(
 	)
 
 
-# --- Holdout ---------------------------------------------------------------
-
 func _test_holdout() -> void:
 	_section("holdout")
 
@@ -549,4 +541,3 @@ func _test_holdout() -> void:
 	_check(finale.phase == DotObjective.Phase.COMPLETE, "holding it out wins it")
 
 
-# --- The set ---------------------------------------------------------------

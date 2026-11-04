@@ -46,8 +46,6 @@ func _test_area() -> void:
 	)
 
 
-# --- Definitions -----------------------------------------------------------
-
 func _test_def_validation() -> void:
 	_section("definition validation")
 
@@ -127,8 +125,6 @@ func _test_def_validation() -> void:
 	)
 
 
-# --- Rules -----------------------------------------------------------------
-
 func _test_rules() -> void:
 	_section("rules")
 
@@ -157,8 +153,6 @@ func _test_rules() -> void:
 		"a second pusher that slows the cart is refused"
 	)
 
-
-# --- Presence --------------------------------------------------------------
 
 func _test_presence() -> void:
 	_section("presence")
@@ -222,8 +216,6 @@ func _test_presence() -> void:
 	_check(p.nearest(Vector3.ZERO, 0.0, 2) == "c", "and can be restricted to a team")
 	_check(p.nearest(Vector3(500, 0, 0), 1.0) == "", "and nobody is within a metre of nowhere")
 
-
-# --- Capture ---------------------------------------------------------------
 
 func _capture_world(radius: float = 5.0) -> Array:
 	var world := World.new()
@@ -524,4 +516,3 @@ func _test_capture_block_credit() -> void:
 	_check(credits[0] == "blue", "to the player who did it")
 
 
-# --- Bomb ------------------------------------------------------------------
