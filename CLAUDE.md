@@ -31,7 +31,7 @@ Paths except `examples/` are in `addons/dot_objective/`.
 
 ## Running and testing
 
-The family's two steps ([game-dev/CLAUDE.md](../../CLAUDE.md#validating-anything)), then `godot --headless --path . res://examples/objective_selftest.tscn`.
+The family's two steps ([family CLAUDE.md](../../CLAUDE.md#validating-anything)), then `godot --headless --path . res://examples/objective_selftest.tscn`.
 
 ## Rules that bite
 

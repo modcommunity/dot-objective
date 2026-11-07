@@ -14,7 +14,7 @@ The reference implementation does this too: it starts a capture whenever a team 
 
 The rule was exported, documented, range-limited, and read in exactly one place: a gate in `_maybe_start` testing a `_recovery_until` that was only ever assigned zero. `_break` had `if _recovery_until == 0: _recovery_until = 0`, a self-assignment that looks from three feet away exactly like the line that should have been there.
 
-Nothing errored, which is why it survived: **restarting immediately is what the reference does**, so a mode that set the field to five seconds and got a capture back on the next tick was looking at correct-for-somebody-else behaviour. It is the family's most-repeated shape (an exported setting whose name occurs once in its repository), caught by the detector that shape has, and by a second one worth keeping: **an assignment whose left and right sides are the same name**. Both are in [game-dev/docs/detectors.md](../../../docs/detectors.md).
+Nothing errored, which is why it survived: **restarting immediately is what the reference does**, so a mode that set the field to five seconds and got a capture back on the next tick was looking at correct-for-somebody-else behaviour. It is the family's most-repeated shape (an exported setting whose name occurs once in its repository), caught by the detector that shape has, and by a second one worth keeping: **an assignment whose left and right sides are the same name**. Both are in [docs/detectors.md](../../../docs/detectors.md).
 
 ## The gate leaked every objective
 
