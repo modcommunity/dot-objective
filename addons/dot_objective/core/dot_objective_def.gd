@@ -181,6 +181,12 @@ enum Kind {
 ## How close somebody must be to take or return it.
 @export_range(0.1, 100.0, 0.1, "or_greater") var flag_touch_radius: float = 1.5
 
+## A carrier scores at their own team's flag stand rather than at [member flag_capture_area]: the form that works for any number of teams.
+@export var flag_capture_at_own_stand: bool = false
+
+## Ticks after a drop during which the dropper cannot pick it straight back up.
+@export_range(0, 100000, 1) var flag_pickup_delay_ticks: int = 0
+
 @export_group("Rescue", "rescue_")
 
 ## Ids of the things to be escorted. Hostages, survivors, a scientist.

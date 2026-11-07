@@ -4,8 +4,8 @@ extends Node
 ## drives the objectives out of a dictionary of positions, the seam a real game fills with
 ## its roster.
 
-const SECTIONS := 20
-const CHECKS := 200
+const SECTIONS := 25
+const CHECKS := 254
 
 ## 64 a second, which is what every "ticks" number below is quoted at.
 const RATE := 64
