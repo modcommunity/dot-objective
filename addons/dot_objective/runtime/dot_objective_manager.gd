@@ -206,7 +206,7 @@ func _check_flag_captures() -> void:
 	for flag in flags:
 		if flag.state != DotObjectiveFlag.State.CARRIED:
 			continue
-		var target := flag.capture_area()
+		var target := flag.capture_area_for(flag.progressing_team(), flags)
 		if target == null:
 			continue
 		if not target.contains(presence.position_of(flag.carrier)):

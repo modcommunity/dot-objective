@@ -23,6 +23,8 @@ Read the family [CLAUDE.md](../../CLAUDE.md) first; this file is only what is sp
 | `core/dot_objective_presence.gd` | `DotObjectivePresence`: the whole coupling to a game, as callables (`participants_fn`, `position_fn`, `team_fn`, `alive_fn`, `capture_value_fn`, `may_capture_fn`, `may_block_fn`) |
 | `core/dot_objective.gd` | `DotObjective`: the base. Phase, owner, the wire form, "complete exactly once" |
 | `kinds/` | `DotObjectiveCapture`, `...Bomb` (plant, fuse, defuse, kit, drop, pick up), `...Payload` (three speeds, hills, checkpoints, receding), `...Flag`, `...Rescue`, `...Holdout` |
+| `core/dot_objective_ctf_rules.gd` | `DotObjectiveCtfRules`: every capture-the-flag number (capture and time limit, return and drop seconds, carrier speed, friendly return, flag-at-home, team count), `DOT_CTF_*` / `--ctf-*` |
+| `runtime/dot_objective_ctf.gd` | `DotObjectiveCtf`: capture the flag for N teams over a manager of `flag` objectives (a stand per team, scored at the carrier's own stand), touch polling, death drop, `speed_scale`, `hud_state`, `ended`, wire |
 | `runtime/dot_objective_set.gd` | `DotObjectiveSet`: the ordered set, the round layout, the per-team gate |
 | `runtime/dot_objective_manager.gd` | `DotObjectiveManager`: the one node a game holds; `score_fn`, `round_objective_met` |
 | `examples/objective_selftest.tscn` | the suite |

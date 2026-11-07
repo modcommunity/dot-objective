@@ -40,6 +40,10 @@ var return_left: int = 0
 ## How many times this flag has been carried in. A game shows it as the score.
 var captures: int = 0
 
+## Who dropped it last, and the ticks left before they may pick it up again.
+var dropper: String = ""
+var pickup_delay_left: int = 0
+
 var _carrier_team: int = 0
 var _home: Vector3 = Vector3.ZERO
 var _last_fraction: float = -1.0
@@ -61,6 +65,16 @@ func capture_area() -> DotObjectiveArea:
 	if def == null:
 		return null
 	return def.flag_capture_area if def.flag_capture_area != null else def.area
+
+
+## Where [param carrier_team] scores with this flag: their own stand when the def says so, which needs [param flags] to find it.
+func capture_area_for(carrier_team: int, flags: Array[DotObjectiveFlag]) -> DotObjectiveArea:
+	if def != null and def.flag_capture_at_own_stand:
+		for f in flags:
+			if f != null and f.home_team() == carrier_team:
+				return f.def.area
+		return null
+	return capture_area()
 
 
 func is_home() -> bool:
@@ -93,6 +107,8 @@ func _reset() -> void:
 	carrier = ""
 	at = _home
 	return_left = 0
+	dropper = ""
+	pickup_delay_left = 0
 	_carrier_team = 0
 	_last_fraction = -1.0
 
@@ -131,6 +147,8 @@ func touch(key: String, presence: DotObjectivePresence) -> DotResult:
 		)
 	if locked or not team_allowed(team):
 		return DotResult.fail(DotError.CODE_STATE, "This flag is not in play yet.")
+	if key == dropper and pickup_delay_left > 0:
+		return DotResult.fail(DotError.CODE_STATE, "Just dropped it; wait a moment.")
 
 	state = State.CARRIED
 	carrier = key
@@ -155,6 +173,8 @@ func drop(position: Vector3) -> DotResult:
 	_carrier_team = 0
 	at = position
 	return_left = def.flag_return_ticks
+	dropper = was
+	pickup_delay_left = def.flag_pickup_delay_ticks
 	phase = Phase.IDLE
 	_last_fraction = -1.0
 	interrupted.emit(team, &"dropped")
@@ -177,6 +197,8 @@ func _send_home(by: String) -> void:
 	_carrier_team = 0
 	at = _home
 	return_left = 0
+	dropper = ""
+	pickup_delay_left = 0
 	phase = Phase.IDLE
 	_last_fraction = -1.0
 	event.emit(&"returned", {"by": by, "from": was})
@@ -218,6 +240,7 @@ func _advance(presence: DotObjectivePresence, _rules: DotObjectiveRules) -> void
 			_announce()
 
 		State.DROPPED:
+			pickup_delay_left = maxi(pickup_delay_left - 1, 0)
 			return_left -= 1
 			if return_left <= 0:
 				_send_home("")
@@ -257,15 +280,20 @@ func _to_wire(out: Dictionary) -> void:
 	out["rl"] = return_left
 	out["ct"] = _carrier_team
 	out["n"] = captures
+	out["dp"] = dropper
+	out["pd"] = pickup_delay_left
 
 
 func _apply_wire(w: Dictionary) -> void:
 	state = int(w.get("s", int(state))) as State
 	carrier = str(w.get("c", carrier))
-	at = w.get("at", at)
+	var where: Variant = w.get("at", at)
+	at = where if where is Vector3 else Vector3(float(where[0]), float(where[1]), float(where[2]))
 	return_left = int(w.get("rl", return_left))
 	_carrier_team = int(w.get("ct", _carrier_team))
 	captures = int(w.get("n", captures))
+	dropper = str(w.get("dp", dropper))
+	pickup_delay_left = int(w.get("pd", pickup_delay_left))
 
 
 func describe_lines() -> PackedStringArray:

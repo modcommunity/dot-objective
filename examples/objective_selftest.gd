@@ -1,4 +1,4 @@
-extends "res://examples/objective_selftest_part2.gd"
+extends "res://examples/objective_selftest_part3.gd"
 
 ## The suite: runs every section from the parts above and checks the totals.
 
@@ -31,6 +31,11 @@ func _run() -> void:
 	_test_set_gating()
 	_test_manager()
 	_test_two_dimensions()
+	_test_ctf_flow()
+	_test_ctf_drop_and_return()
+	_test_ctf_limits()
+	_test_ctf_three_teams()
+	_test_ctf_wire()
 
 	_line("")
 	_line("%d sections, %d passed, %d failed" % [_section_count, _passed, _failed])

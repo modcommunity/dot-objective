@@ -73,3 +73,7 @@ A bomb being defused re-checks every tick that the defuser is alive, on the righ
 - **No overtime decision.** `rules.overtime` is a switch a game sets; deciding when a round is in overtime needs the round clock, which is dot-match's.
 - **No hostage pathing, no cart model, no capture-point prop.** Art and navigation.
 - **No area entity in the editor.** dot-timer ships `DotTimerZonePainter` because a speedrun zone is drawn by a mapper on a surface; an objective area is three numbers in a map's own definition file, and a painter for it would be a fourth way to write them.
+
+## Capture the flag for any number of teams
+
+`DotObjectiveCtf` builds one flag per team with `flag_capture_at_own_stand`, so a carrier scores at their own team's stand and the same defs work for two, three or eight teams. The stand positions come from the game (dot-spawn's `DotSpawnFlags.bases` reads authored `flag` spawns and falls back to clusters of the player spawns). A carrier takes no second flag, a dropper waits `flag_pickup_delay_ticks` before taking it back, and the server alone decides: a mirror applies `to_wire()` and raises no events of its own. The capture limit and the time limit end the match through `ended`; the game decides what ending means.
