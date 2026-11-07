@@ -256,13 +256,13 @@ func _test_ctf_wire() -> void:
 	add_child(mirror)
 	_check(mirror.setup(_two_bases()).ok, "a mirror builds the same flags")
 	_run_ticks(server, 2)
-	mirror.apply_wire(server.to_wire())
-	_check(mirror.flag_of(2).state == DotObjectiveFlag.State.CARRIED and mirror.flag_of(2).carrier == "a", "the mirror shows the carrier")
+	mirror.apply_wire(JSON.parse_string(JSON.stringify(server.to_json_wire())))
+	_check(mirror.flag_of(2).state == DotObjectiveFlag.State.CARRIED and mirror.flag_of(2).carrier == "a", "the mirror shows the carrier, through JSON")
 	var events: Array = []
 	mirror.flag_event.connect(func(t: int, what: StringName, _d: Dictionary) -> void: events.append([t, what]))
 	w.move("a", Vector3(-50, 0, 0))
 	_run_ticks(server, 2)
-	mirror.apply_wire(server.to_wire())
+	mirror.apply_wire(JSON.parse_string(JSON.stringify(server.to_json_wire())))
 	_check(mirror.scores[1] == 1 and mirror.flag_of(2).is_home(), "and the capture, through the wire")
 	w.move("a", Vector3(50, 0, 0))
 	for i in 5:

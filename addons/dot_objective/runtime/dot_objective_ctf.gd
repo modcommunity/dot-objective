@@ -218,6 +218,27 @@ func to_wire() -> Dictionary:
 	return out
 
 
+## [method to_wire] with every Vector3 as a three-number array, so it survives JSON.
+func to_json_wire() -> Dictionary:
+	return _plain(to_wire())
+
+
+static func _plain(v: Variant) -> Variant:
+	if v is Vector3:
+		return [v.x, v.y, v.z]
+	if v is Dictionary:
+		var d := {}
+		for k: Variant in v:
+			d[k] = _plain(v[k])
+		return d
+	if v is Array:
+		var a := []
+		for x: Variant in v:
+			a.append(_plain(x))
+		return a
+	return v
+
+
 func apply_wire(w: Dictionary) -> void:
 	if manager == null:
 		return

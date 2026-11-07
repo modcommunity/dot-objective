@@ -287,7 +287,8 @@ func _to_wire(out: Dictionary) -> void:
 func _apply_wire(w: Dictionary) -> void:
 	state = int(w.get("s", int(state))) as State
 	carrier = str(w.get("c", carrier))
-	at = w.get("at", at)
+	var where: Variant = w.get("at", at)
+	at = where if where is Vector3 else Vector3(float(where[0]), float(where[1]), float(where[2]))
 	return_left = int(w.get("rl", return_left))
 	_carrier_team = int(w.get("ct", _carrier_team))
 	captures = int(w.get("n", captures))
