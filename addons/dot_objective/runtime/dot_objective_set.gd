@@ -89,7 +89,7 @@ func _make(def: DotObjectiveDef) -> DotObjective:
 ## [b]The gate reaches this set through a weak reference, and that is the whole point of
 ## it.[/b] A lambda that calls [method owns_all] captures `self`, the objective holds the
 ## lambda and this set holds the objective: two [RefCounted]s pointing at each other,
-## which GDScript never frees. Measured in game-arena's dedicated suite as nine
+## which GDScript never frees. Measured in game-fatal-contact's dedicated suite as nine
 ## objectives and six definitions alive at exit, and the objective scripts with them. An
 ## objective that outlives its set is one nobody is playing, so its gate opens.
 func _wire() -> void:

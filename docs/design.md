@@ -22,7 +22,7 @@ That is what lets the whole addon run in a headless suite with a dictionary of p
 ## What it is not
 
 - **Not a round loop.** It emits `round_objective_met`; dot-match ends rounds. This addon does not import dot-match and could not, because a control point is the same rule in a game with no match loop at all.
-- **Not a scoreboard.** `score_fn` is one callable; game-arena's calls `DotMatch.report_objective`.
+- **Not a scoreboard.** `score_fn` is one callable; game-fatal-contact's calls `DotMatch.report_objective`.
 - **Not an item system.** The bomb is not an item; a game hands it to somebody with `give_to` and drops it with `drop_at`. Whether that is a loadout slot, a prop or a boolean is the game's business, and every one of those still needs the plant timer.
 - **Not a navigation system.** A rescue follower *trails* its rescuer. An escort that pathfinds is one that cannot run headless, cannot run in 2D, and has quietly become a second and worse [dot-npc](../../dot-npc).
 
@@ -52,7 +52,7 @@ dot-timer's lesson. A float accumulator drifts, and a value in seconds on a serv
 
 ## A mirror does not simulate
 
-`authoritative = false` makes `advance()` a no-op and `apply_wire()` the only way state changes. Two machines running a capture clock disagree by whatever their tick rates differ by, and the client's HUD then shows a point captured that the server has not captured: game-g2gfast's 128-against-60 bug in a different subsystem.
+`authoritative = false` makes `advance()` a no-op and `apply_wire()` the only way state changes. Two machines running a capture clock disagree by whatever their tick rates differ by, and the client's HUD then shows a point captured that the server has not captured: game-airdrift's 128-against-60 bug in a different subsystem.
 
 The wire form is the whole state as one dictionary rather than a delta. Twenty objectives is a few hundred bytes a few times a second; a delta scheme here would be a second replication system beside dot-net's for no measurable gain.
 

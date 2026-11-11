@@ -4,7 +4,7 @@ What a round is **about**: control points, a bomb, a payload, a flag, a rescue a
 
 Read the family [CLAUDE.md](../../CLAUDE.md) first; this file is only what is specific to objectives.
 
-**The distributable is `addons/dot_objective/`.** It requires [dot-core](../dot-core) and nothing else (`ln -s ../../dot-core/addons/dot_core addons/dot_core`, gitignored). It does not import dot-match; game-arena is the game on it.
+**The distributable is `addons/dot_objective/`.** It requires [dot-core](../dot-core) and nothing else (`ln -s ../../dot-core/addons/dot_core addons/dot_core`, gitignored). It does not import dot-match; game-fatal-contact is the game on it.
 
 ## Read before
 
