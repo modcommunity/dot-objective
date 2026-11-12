@@ -101,8 +101,12 @@ func flag_of(team: int) -> DotObjectiveFlag:
 
 ## The flag [param key] is carrying, or null.
 func carried_by(key: String) -> DotObjectiveFlag:
-	for f in flags():
-		if f.state == DotObjectiveFlag.State.CARRIED and f.carrier == key:
+	if manager == null or manager.objectives == null:
+		return null
+	# Walks the set in place: flags() allocates, and this runs per player per tick.
+	for obj in manager.objectives.objectives:
+		var f := obj as DotObjectiveFlag
+		if f != null and f.state == DotObjectiveFlag.State.CARRIED and f.carrier == key:
 			return f
 	return null
 
@@ -129,8 +133,9 @@ func advance(tick: int, live: bool = true) -> void:
 
 ## Takes or returns every flag a living player stands on; a carrier takes no second flag.
 func _touch() -> void:
+	var keys := presence.participants()
 	for f in flags():
-		for key in presence.participants():
+		for key in keys:
 			if not presence.is_alive(key) or carried_by(key) != null:
 				continue
 			if presence.position_of(key).distance_to(f.at) > f.def.flag_touch_radius:
