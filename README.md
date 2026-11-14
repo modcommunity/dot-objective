@@ -1,5 +1,3 @@
-# dot-objective
-
 The part of a multiplayer game that says what a round is about: control points, a bomb to plant and defuse, a payload to push, a flag to capture, someone to escort out, and a clock to hold. It needs only [dot-core](https://github.com/modcommunity/dot-core). Part of TMC's open source **Dot** collection (MIT licence).
 
 > Built with Claude Code. Every addon has a headless test suite and the suites pass, but little of this has met real players yet. Please report rough edges.
