@@ -134,13 +134,23 @@ func advance(tick: int, live: bool = true) -> void:
 ## Takes or returns every flag a living player stands on; a carrier takes no second flag.
 func _touch() -> void:
 	var keys := presence.participants()
-	for f in flags():
+	var all := flags()
+	# Who carries, found once: a carried_by per key per flag walked the set again each time. A touch that
+	# picks a flag up adds its carrier below, so a carrier still takes no second flag.
+	var carrying := {}
+	for f in all:
+		if f.state == DotObjectiveFlag.State.CARRIED:
+			carrying[f.carrier] = true
+	for f in all:
+		var reach := f.def.flag_touch_radius
 		for key in keys:
-			if not presence.is_alive(key) or carried_by(key) != null:
+			if carrying.has(key) or not presence.is_alive(key):
 				continue
-			if presence.position_of(key).distance_to(f.at) > f.def.flag_touch_radius:
+			if presence.position_of(key).distance_to(f.at) > reach:
 				continue
 			if f.touch(key, presence).ok:
+				if f.state == DotObjectiveFlag.State.CARRIED:
+					carrying[f.carrier] = true
 				break
 
 
