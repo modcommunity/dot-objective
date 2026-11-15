@@ -1,4 +1,4 @@
-The part of a multiplayer game that says what a round is about: control points, a bomb to plant and defuse, a payload to push, a flag to capture, someone to escort out, and a clock to hold. It needs only [dot-core](https://github.com/modcommunity/dot-core). Part of TMC's open source **Dot** collection (MIT licence).
+The part of a multiplayer game that says what a round is about: control points, a bomb to plant and defuse, a payload to push, a flag to capture, someone to escort out, and a clock to hold. It needs only [dot-core](https://github.com/gamespice-platform/core). Part of TMC's open source **Dot** collection (MIT licence).
 
 > Built with Claude Code. Every addon has a headless test suite and the suites pass, but little of this has met real players yet. Please report rough edges.
 
@@ -15,7 +15,7 @@ An objective is what a team is trying to do in a round other than kill the other
 | `RESCUE` | Lead someone (or several people) to an exit. |
 | `HOLDOUT` | Hold a point, or just survive, until a clock runs out. |
 
-The manager runs every objective on the map each tick: who stands where, how far a capture or cart has got, whether a defuse was interrupted. It tells your game when something started, was interrupted, was blocked or finished. It never ends a round itself; [dot-match](https://github.com/modcommunity/dot-match) does that. A game with no objectives is a deathmatch, which dot-match handles on its own.
+The manager runs every objective on the map each tick: who stands where, how far a capture or cart has got, whether a defuse was interrupted. It tells your game when something started, was interrupted, was blocked or finished. It never ends a round itself; [dot-match](https://github.com/gamespice-platform/match) does that. A game with no objectives is a deathmatch, which dot-match handles on its own.
 
 The default numbers follow what objective modes have settled on over the years:
 
@@ -28,7 +28,7 @@ Tick counts here assume 64 ticks per second.
 
 ## Install
 
-Copy `addons/dot_objective/` and dot-core's `addons/dot_core/` into your project and enable dot-objective under **Project > Project Settings > Plugins**. [dot-bootstrap](https://github.com/modcommunity/dot-bootstrap) can set up a whole project for you. Needs Godot 4.7 or newer.
+Copy `addons/dot_objective/` and dot-core's `addons/dot_core/` into your project and enable dot-objective under **Project > Project Settings > Plugins**. [dot-bootstrap](https://github.com/gamespice-platform/bootstrap) can set up a whole project for you. Needs Godot 4.7 or newer.
 
 ## Use
 
