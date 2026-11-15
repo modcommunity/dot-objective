@@ -99,7 +99,7 @@ mirror.apply_wire(wire_from_the_server)   # the server sends objectives.to_wire(
 
 ## Settings
 
-Round-wide rules live in a `DotObjectiveRules` resource set on the manager's `rules` (a default is made if you leave it empty). It is layered like every Dot config: defaults, JSON file, `DOT_OBJECTIVE_*` environment, `--objective-*` command line. Call `load_layered()` before `setup()`:
+Round-wide rules live in a `DotObjectiveRules` resource set on the manager's `rules` (a default is made if you leave it empty). It is layered like every Gamespice config: defaults, JSON file, `DOT_OBJECTIVE_*` environment, `--objective-*` command line. Call `load_layered()` before `setup()`:
 
 ```gdscript
 var rules := DotObjectiveRules.new()
