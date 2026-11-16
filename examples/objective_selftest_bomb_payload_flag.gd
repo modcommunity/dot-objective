@@ -1,4 +1,4 @@
-extends "res://examples/objective_selftest_part1.gd"
+extends "res://examples/objective_selftest_capture_points.gd"
 
 ## Second part of the self-test: bomb, payload, flag, rescue and holdout.
 

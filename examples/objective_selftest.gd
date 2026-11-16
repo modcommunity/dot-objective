@@ -1,4 +1,4 @@
-extends "res://examples/objective_selftest_part3.gd"
+extends "res://examples/objective_selftest_ctf.gd"
 
 ## The suite: runs every section from the parts above and checks the totals.
 

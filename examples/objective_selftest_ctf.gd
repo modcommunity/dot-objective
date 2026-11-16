@@ -1,4 +1,4 @@
-extends "res://examples/objective_selftest_part2.gd"
+extends "res://examples/objective_selftest_bomb_payload_flag.gd"
 
 ## Capture the flag as a mechanic: flow, drop and return, limits, three teams, replication.
 
