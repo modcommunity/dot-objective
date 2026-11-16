@@ -108,7 +108,7 @@ objectives.rules = rules
 ```
 
 ```bash
-DOT_OBJECTIVE_BLOCK_STYLE=0 godot --headless -- --objective-deteriorate-ticks=3840
+GS_OBJECTIVE_BLOCK_STYLE=0 godot --headless -- --objective-deteriorate-ticks=3840
 ```
 
 | Setting | Default | What it does |
