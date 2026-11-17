@@ -18,4 +18,4 @@ Nothing errored, which is why it survived: **restarting immediately is what the 
 
 ## The gate leaked every objective
 
-Before the gate held a `weakref`, the set and its objectives formed a `RefCounted` cycle, and game-arena's dedicated server leaked every objective and definition at exit for as long as it had objectives ([design](design.md#the-gate-reaches-its-set-through-a-weak-reference)).
+Before the gate held a `weakref`, the set and its objectives formed a `RefCounted` cycle, and game-fatal-contact's dedicated server leaked every objective and definition at exit for as long as it had objectives ([design](design.md#the-gate-reaches-its-set-through-a-weak-reference)).
