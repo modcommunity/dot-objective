@@ -1,4 +1,4 @@
-[![Objective - GameSpice addon](docs/banner.png)](https://moddingcommunity.com/a/240-dot-objective)
+[![Objective - GameSpice addon](docs/banner.png)](https://moddingcommunity.com/a/46-gs-objective)
 
 The part of a multiplayer game that says what a round is about: control points, a bomb to plant and defuse, a payload to push, a flag to capture, someone to escort out, and a clock to hold. It needs only [dot-core](https://github.com/gamespice-platform/core). Part of TMC's open source [**GameSpice**](https://gamespice.net) collection (MIT licence).
 
