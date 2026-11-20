@@ -6,12 +6,12 @@ extends Resource
 ##
 ## An objective is a rule about a place, and the place is the one part of it a mapper
 ## draws. Every other addon in this family that needed one of these reached for a
-## physics body and then could not run headless; dot-timer's zones are the exception
+## physics body and then could not run headless; GameSpice Timer's zones are the exception
 ## and they are the shape that survived. So this is a centre, a size and a test —
 ## nothing is added to the scene tree, nothing collides, and a suite with no world in
 ## it can drive a whole capture.
 ##
-## [b]A 2D world is the XZ plane.[/b] dot-npc settled that and everything downstream of
+## [b]A 2D world is the XZ plane.[/b] GameSpice NPC settled that and everything downstream of
 ## it — senses, steering, navigation — ran unchanged as a result: a 3D distance on a
 ## plane where one component never moves is the 2D distance. [method of_2d] builds the
 ## same area from a [Vector2], and [method point_2d] converts back for a caller holding

@@ -22,8 +22,8 @@ extends Node
 ##
 ## [b]It never ends a round and never scores anything itself.[/b] It emits, and
 ## [member score_fn] hands a completion to whatever is keeping score —
-## [method DotMatch.report_objective] in every game here. dot-objective does not import
-## dot-match, because a control point is the same rule in a game that has no match loop
+## [method DotMatch.report_objective] in every game here. GameSpice Objective does not import
+## GameSpice Match, because a control point is the same rule in a game that has no match loop
 ## at all, and a hard dependency would make it one that could not compile there.
 
 ## An objective was completed. [param id] is which, [param team] may be 0.
@@ -83,7 +83,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	# A created DotNodeRef subsystem has already run _ready() by the time a host
-	# assigns its config — this family lost dot-server's audit log to exactly that.
+	# assigns its config — this family lost GameSpice Server's audit log to exactly that.
 	# So _ready() builds nothing here; setup() is explicit and returns a DotResult.
 	if rules == null:
 		rules = DotObjectiveRules.new()
@@ -170,7 +170,7 @@ func _check_sweep(team: int) -> void:
 		return
 	# Once per sweep. A capture that changes hands and comes back would otherwise
 	# announce a second time and a mode scored on it would score twice — the family's
-	# "announce exactly once" bug, which dot-vote's play history hit last.
+	# "announce exactly once" bug, which GameSpice Vote's play history hit last.
 	if _announced_sweep == team:
 		return
 	_announced_sweep = team
@@ -251,7 +251,7 @@ func set_overtime(overtime: bool) -> void:
 ##
 ## Sent whole rather than as deltas, deliberately: the whole of a map's objective state
 ## is a few hundred bytes at twenty entities, it is sent a few times a second at most,
-## and a delta scheme here would be a second replication system beside dot-net's for no
+## and a delta scheme here would be a second replication system beside GameSpice Net's for no
 ## measurable gain. A game that wants it in a [DotNetVar] can put this in one.
 func to_wire() -> Dictionary:
 	var out := {"t": _tick, "o": []}

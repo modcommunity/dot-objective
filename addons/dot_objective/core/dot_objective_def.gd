@@ -53,7 +53,7 @@ enum Kind {
 @export_group("Ownership")
 
 ## Who holds it when a round starts. Zero is neutral, and team ids start at 1 —
-## dot-match's convention, and this addon does not import dot-match to learn it.
+## GameSpice Match's convention, and this addon does not import GameSpice Match to learn it.
 @export_range(0, 32, 1) var initial_team: int = 0
 
 ## Teams allowed to take it at all. Empty means every team.
@@ -93,7 +93,7 @@ enum Kind {
 
 ## Ticks to take it with the minimum number of cappers.
 ##
-## [b]Ticks, not seconds, everywhere in this addon.[/b] dot-timer's lesson: a float
+## [b]Ticks, not seconds, everywhere in this addon.[/b] GameSpice Timer's lesson: a float
 ## accumulator drifts, and a value in seconds on a server that runs at 64 and a client
 ## that runs at 128 is two different numbers for one thing. The rate comes from
 ## [code]Engine.physics_ticks_per_second[/code] at the edges and never from an export.

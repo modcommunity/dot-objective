@@ -9,9 +9,9 @@ extends DotObjective
 ##
 ## [b]A follower's position is derived, never simulated.[/b] It trails its rescuer at
 ## [member DotObjectiveDef.rescue_follow_distance] and that is all. This addon does not
-## own a navigation graph — dot-npc does — and an escort system that pathfinds is one
+## own a navigation graph — GameSpice NPC does — and an escort system that pathfinds is one
 ## that cannot run in a headless suite, cannot run in 2D, and has quietly become a
-## second, worse dot-npc. A game that wants a hostage to walk round a corner properly
+## second, worse GameSpice NPC. A game that wants a hostage to walk round a corner properly
 ## gives the follower a [DotNpcInstance] and moves it itself; the state machine here is
 ## still the one that says who is following whom and when they are safe.
 ##

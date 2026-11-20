@@ -1,10 +1,10 @@
 # Design
 
-Why dot-objective is shaped the way it is, and why the obvious alternative is wrong in each case.
+Why GameSpice Objective is shaped the way it is, and why the obvious alternative is wrong in each case.
 
 ## Why this exists
 
-[dot-match](../../dot-match) has the round loop: warmup, countdown, rounds, scoring, teams, spawning, respawning. It has `report_objective(key, counter, tick, points)` (a *number* a game increments) and nothing that decides when to increment it. So every game that wanted a mode wrote its own capture clock, its own plant timer, its own flag rules, and every one of them got the same four things wrong:
+[GameSpice Match](../../dot-match) has the round loop: warmup, countdown, rounds, scoring, teams, spawning, respawning. It has `report_objective(key, counter, tick, points)` (a *number* a game increments) and nothing that decides when to increment it. So every game that wanted a mode wrote its own capture clock, its own plant timer, its own flag rules, and every one of them got the same four things wrong:
 
 - **The capture rate.** One player, two players, five players. Every hand-written version is linear, which makes a point a headcount and a mode a race to bring more people.
 - **Blocking.** Two teams on one point either has to pause the clock or break it, and the version that does neither is the one where the losing team cannot defend.
@@ -21,10 +21,10 @@ That is what lets the whole addon run in a headless suite with a dictionary of p
 
 ## What it is not
 
-- **Not a round loop.** It emits `round_objective_met`; dot-match ends rounds. This addon does not import dot-match and could not, because a control point is the same rule in a game with no match loop at all.
+- **Not a round loop.** It emits `round_objective_met`; GameSpice Match ends rounds. This addon does not import GameSpice Match and could not, because a control point is the same rule in a game with no match loop at all.
 - **Not a scoreboard.** `score_fn` is one callable; game-fatal-contact's calls `DotMatch.report_objective`.
 - **Not an item system.** The bomb is not an item; a game hands it to somebody with `give_to` and drops it with `drop_at`. Whether that is a loadout slot, a prop or a boolean is the game's business, and every one of those still needs the plant timer.
-- **Not a navigation system.** A rescue follower *trails* its rescuer. An escort that pathfinds is one that cannot run headless, cannot run in 2D, and has quietly become a second and worse [dot-npc](../../dot-npc).
+- **Not a navigation system.** A rescue follower *trails* its rescuer. An escort that pathfinds is one that cannot run headless, cannot run in 2D, and has quietly become a second and worse [GameSpice NPC](../../dot-npc).
 
 ## `capture_ticks` means what it says
 
@@ -48,13 +48,13 @@ A prerequisite naming an objective that is not in the set **refuses**, loudly. A
 
 ## Ticks, and no wall clock anywhere
 
-dot-timer's lesson. A float accumulator drifts, and a value in seconds on a server at 64 and a client at 128 is two different numbers for one thing. `advance(tick)` is the only thing that moves anything here.
+GameSpice Timer's lesson. A float accumulator drifts, and a value in seconds on a server at 64 and a client at 128 is two different numbers for one thing. `advance(tick)` is the only thing that moves anything here.
 
 ## A mirror does not simulate
 
 `authoritative = false` makes `advance()` a no-op and `apply_wire()` the only way state changes. Two machines running a capture clock disagree by whatever their tick rates differ by, and the client's HUD then shows a point captured that the server has not captured: game-airdrift's 128-against-60 bug in a different subsystem.
 
-The wire form is the whole state as one dictionary rather than a delta. Twenty objectives is a few hundred bytes a few times a second; a delta scheme here would be a second replication system beside dot-net's for no measurable gain.
+The wire form is the whole state as one dictionary rather than a delta. Twenty objectives is a few hundred bytes a few times a second; a delta scheme here would be a second replication system beside GameSpice Net's for no measurable gain.
 
 ## Interruption is re-tested every tick, not trusted
 
@@ -69,10 +69,10 @@ A bomb being defused re-checks every tick that the defuser is alive, on the righ
 ## Deliberately not here
 
 - **No round layouts as a document.** `DotObjectiveSet.set_round()` takes ids and owners; a map that wants five different round configurations declares them in its own file. A schema for that is a schema for one game's idea of a round.
-- **No respawn-time adjustment on capture.** The class-based objective shooters shorten the defenders' wave when a point falls. That is dot-match's respawn queue and belongs there.
+- **No respawn-time adjustment on capture.** The class-based objective shooters shorten the defenders' wave when a point falls. That is GameSpice Match's respawn queue and belongs there.
 - **No overtime decision.** `rules.overtime` is a switch a game sets; deciding when a round is in overtime needs the round clock, which is dot-match's.
 - **No hostage pathing, no cart model, no capture-point prop.** Art and navigation.
-- **No area entity in the editor.** dot-timer ships `DotTimerZonePainter` because a speedrun zone is drawn by a mapper on a surface; an objective area is three numbers in a map's own definition file, and a painter for it would be a fourth way to write them.
+- **No area entity in the editor.** GameSpice Timer ships `DotTimerZonePainter` because a speedrun zone is drawn by a mapper on a surface; an objective area is three numbers in a map's own definition file, and a painter for it would be a fourth way to write them.
 
 ## Capture the flag for any number of teams
 

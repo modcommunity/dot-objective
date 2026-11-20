@@ -4,11 +4,11 @@ extends RefCounted
 ## How an objective finds out who is standing on it.
 ##
 ## [b]The whole coupling of this addon to a game is here, and it is six callables.[/b]
-## dot-objective never imports dot-match, dot-combat, dot-player-controller or dot-net,
+## GameSpice Objective never imports GameSpice Match, GameSpice Combat, GameSpice Player Controller or GameSpice Net,
 ## and it must not: a control point is the same rule in a 3D shooter, a 2D arena and a
 ## headless test with a dictionary of positions in it. The alternative — asking a
 ## [DotMatch] for its roster — would make every one of those a project that needs
-## dot-match installed to compile.
+## GameSpice Match installed to compile.
 ##
 ## The failure this shape has is the family's most repeated one, so it is checked
 ## rather than trusted: an unset [Callable] is not an error in GDScript, it is a
@@ -19,8 +19,8 @@ extends RefCounted
 
 ## Every player who might be standing somewhere. [code]() -> PackedStringArray[/code]
 ##
-## Keys, not peer ids: dot-match scores by key and a peer id dies with its connection,
-## which is the bug dot-moderation exists because of.
+## Keys, not peer ids: GameSpice Match scores by key and a peer id dies with its connection,
+## which is the bug GameSpice Moderation exists because of.
 var participants_fn: Callable = Callable()
 
 ## Where one is. [code](key: String) -> Vector3[/code]. A 2D game returns XZ.

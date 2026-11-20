@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-## Editor entry point for dot-objective. Registers inspector types only.
+## Editor entry point for GameSpice Objective. Registers inspector types only.
 ##
 ## No autoloads. An objective manager is a tempting singleton and it is the wrong shape
 ## twice over: a server that simulates and a client that mirrors are two of them in one
